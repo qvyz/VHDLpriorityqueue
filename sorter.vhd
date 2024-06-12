@@ -68,8 +68,6 @@ begin
                 else
                     count <= count + 1;
                 end if;
-                --                count <= count_temp;
-                --                position <= position_temp;
                 datastorage <= datastorage_temp;
                 idxarray <= idxarray_temp;
 
@@ -81,9 +79,7 @@ begin
     process (all) is
         variable position_temp : integer range 0 to num_obj - 1 := 0;
         variable count_temp : integer range 0 to num_obj - 1 := 0;
---        variable datastorage_calc : storagearray(num_obj - 1 downto 0) := (others => (others => '0'));
---        variable idxarray_calc : outarray(num_obj - 1 downto 0) := (others => 0);
---        variable datacount_calc : integer range 0 to num_obj - 1 := 0;
+
     begin
         next_state <= state;
         count_temp := count;
@@ -120,10 +116,9 @@ begin
                         datastorage_temp(constval downto 0) <= datastorage(constval downto 0);
                         datastorage_temp(0) <= data;
                         data_count_temp <= 1;
-                        
                         idxarray_temp(constval downto 0) <= idxarray(constval downto 0);
                         idxarray_temp(0) <= count;
-                    elsif datastorage(0) > data then
+                    elsif datastorage(0) >= data then
                         position_temp := 0;
                         datastorage_temp(datastorage_temp'high downto 1) <= datastorage(datastorage'high - 1 downto 0);
                         datastorage_temp(0) <= data;
